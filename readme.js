@@ -8,24 +8,48 @@
 const fs = require("fs");
 const util = require('util');
 const inquirer = require("inquirer");
+const axios = require("axios"); //https://www.npmjs.com/package/axios
 
 // The user will be prompted for their GitHub username, which will be used to make a call to the GitHub API to retrieve their email and profile image. 
 
 // They will then be prompted with questions about their project.
 
-let promptUser = () => {
-    return inquirer.prompt([ //start with prompt - see documentation pages
-        // inqurer works via array of object that asks questions
-        {
-            type: "input",
-            name: "username",
-            message: "What is your GITHUB username"
-        },
+// let promptUser = () => {
+//     return inquirer.prompt([ //start with prompt - see documentation pages
+//         // inqurer works via array of object that asks questions
+//         {
+//             type: "input",
+//             name: "username",
+//             message: "What is your GITHUB username"
+//         }
 
-    ])
-};
+//     ])
+// };
 
-console.log(promptUser);
+// promptUser();
+
+
+
+let tempUserName = "lhttps://api.github.com/users/louiejf1";
+let gitHubApi = "https://api.github.com";
+let current_user_authorizations_html_url = "https://api.github.com/hub";
+
+https://wilsonmar.github.io/github-api/
+
+
+axios.get(tempUserName)
+  .then(function(res) {
+    
+    console.log(res);
+    let name = res.data.name;
+    console.log(name);
+    let avatar = res.data.avatar_url;
+    console.log(avatar);
+
+
+  });
+
+// console.log(promptUser.name);
 
 // node index.js
 
