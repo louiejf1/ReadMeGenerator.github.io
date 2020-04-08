@@ -1,0 +1,24 @@
+{
+  "name": "readme",
+  "version": "1.0.0",
+  "description": "command-line application that dynamically generates a README.md from a user's input",
+  "main": "readme.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louiejf1/ReadMeGenerator.github.io.git"
+  },
+  "author": "Ludwig Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/louiejf1/ReadMeGenerator.github.io/issues"
+  },
+  "homepage": "https://github.com/louiejf1/ReadMeGenerator.github.io#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "inquirer": "^7.1.0",
+    "util": "^0.12.2"
+  }
+}
