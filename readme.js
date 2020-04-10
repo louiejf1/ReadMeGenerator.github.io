@@ -34,6 +34,8 @@ let tempUserName = "https://api.github.com/users/louiejf1";
 let gitHubApi = "https://api.github.com";
 let current_user_authorizations_html_url = "https://api.github.com/hub";
 
+let gitRepoList = "https://api.github.com/users/louiejf1/repos";
+
 https: //wilsonmar.github.io/github-api/
 
 
@@ -45,36 +47,53 @@ https: //wilsonmar.github.io/github-api/
         //console.log(name);
         let avatar = res.data.avatar_url;
         //console.log(avatar);
-        let repos_url = res.data.repos_url;
+        // let repos_url = res.data.repos_url;
         //console.log(repos_url);
 
-        axios.get(repos_url)
-            .then(function (res1) {
-                //console.log(res1);
+        // axios.get(repos_url)
+        //     .then(function (res1) {
+        //         //console.log(res1);
 
-                for (let i = 0; i < res1.length; i++) {
-                    // console.log(res1[i]);
-                    repoList.push(res1[i].name);
+        //         for (let i = 0; i < res1.length; i++) {
+        //             // console.log(res1[i]);
+        //             repoList.push(res1[i].name);
 
-                }
-                //   let repo1 = res1.data[1].name;
-                //   console.log(repo1);
-            });
+        //         }
+        //         //   let repo1 = res1.data[1].name;
+        //         //   console.log(repo1);
+        //     });
 
-        repoList = [];
-        console.log(repoList);
-
-        let test = 0;
+        // repoList = [];
+        // console.log(repoList);
 
 
-        fs.appendFile("readme.txt", test + 1, function (err) {
-
-            if (err) {
-                return console.log(err);
-            }
-            ss
-            console.log("Success!");
-
-        });
 
     });
+
+
+axios.get(gitRepoList)
+    .then(function (res1) {
+        //console.log(res1);
+        //console.log(res1.data);
+
+        for (let i = 0; i < res1.length; i++) {
+            console.log(res1[i]);
+           
+        }
+           
+    });
+
+
+
+
+// let test = 0;
+
+// fs.appendFile("readme.txt", test + 1, function (err) {
+
+//     if (err) {
+//         return console.log(err);
+//     }
+
+//     console.log("Success!");
+
+// });
