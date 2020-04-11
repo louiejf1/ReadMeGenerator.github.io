@@ -14,85 +14,92 @@ const axios = require("axios"); //https://www.npmjs.com/package/axios
 
 // They will then be prompted with questions about their project.
 
-// let promptUser = () => {
-//     return inquirer.prompt([ //start with prompt - see documentation pages
-//         // inqurer works via array of object that asks questions
-//         {
-//             type: "input",
-//             name: "username",
-//             message: "What is your GITHUB username"
-//         }
 
-//     ])
-// };
-
-// promptUser();
-
-
-
-let tempUserName = "https://api.github.com/users/louiejf1";
-let gitHubApi = "https://api.github.com";
-let current_user_authorizations_html_url = "https://api.github.com/hub";
-
-let gitRepoList = "https://api.github.com/users/louiejf1/repos";
-
-
-
-    axios.get(tempUserName)
-    .then(function (res) {
-
-        // console.log(res);
-        // let name = res.data.name;
-        // console.log(name);
-        // let avatar = res.data.avatar_url;
-        // console.log(avatar);
-        // let repos_url = res.data.repos_url;
-        // console.log(repos_url);
-
-    //     // axios.get(repos_url)
-    //     //     .then(function (res1) {
-    //     //         //console.log(res1);
-
-    //     //         for (let i = 0; i < res1.length; i++) {
-    //     //             // console.log(res1[i]);
-    //     //             repoList.push(res1[i].name);
-
-    //     //         }
-    //     //         //   let repo1 = res1.data[1].name;
-    //     //         //   console.log(repo1);
-    //     //     });
-
-    //     // repoList = [];
-    //     // console.log(repoList);
-
-
-
-    });
-
-
-axios.get(gitRepoList)
-    .then(function (res1) {
-        //console.log(res1);
-        //console.log(res1.data[3].name);
-
-        for (let i = 0; i < res1.data.length; i++) {
-            console.log(res1.data[i].name);
-           
+let promptUser = () => {
+    return inquirer.prompt([ //start with prompt - see documentation pages
+        // inqurer works via array of object that asks questions
+        {
+            type: "input",
+            name: "username",
+            message: "What is your GITHUB username"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your GITHUB email"
         }
-           
-    });
+
+    ]).then(
+        function (responce) {
+            let gitRepoNames = [];
+
+            let gitRepoList = `https://api.github.com/users/${responce.username}/repos`;
+
+            axios.get(gitRepoList)
+                .then(function (res1) {
+                    //console.log(res1);
+                    //console.log(res1.data[3].name);
+
+                    for (let i = 0; i < res1.data.length; i++) {
+                        // console.log(res1.data[i].name);
+                        gitRepoNames.push(res1.data[i].name);
+
+                    }
+
+                    fs.appendFile("readme.txt", gitRepoNames + 1, function (err) {
+
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        console.log("Success!");
+
+                    });
+
+                });
+        }
+    );
+};
+
+promptUser();
 
 
 
+// let tempUserName = "https://api.github.com/users/louiejf1";
+// let gitHubApi = "https://api.github.com";
+// let current_user_authorizations_html_url = "https://api.github.com/hub";
 
-// let test = 0;
+// let gitRepoList = "https://api.github.com/users/louiejf1/repos";
 
-// fs.appendFile("readme.txt", test + 1, function (err) {
 
-//     if (err) {
-//         return console.log(err);
-//     }
 
-//     console.log("Success!");
+// axios.get(tempUserName)
+//     .then(function (res) {
 
-// });
+//         // console.log(res);
+//         // let name = res.data.name;
+//         // console.log(name);
+//         // let avatar = res.data.avatar_url;
+//         // console.log(avatar);
+//         // let repos_url = res.data.repos_url;
+//         // console.log(repos_url);
+
+//         //     // axios.get(repos_url)
+//         //     //     .then(function (res1) {
+//         //     //         //console.log(res1);
+
+//         //     //         for (let i = 0; i < res1.length; i++) {
+//         //     //             // console.log(res1[i]);
+//         //     //             repoList.push(res1[i].name);
+
+//         //     //         }
+//         //     //         //   let repo1 = res1.data[1].name;
+//         //     //         //   console.log(repo1);
+//         //     //     });
+
+//         //     // repoList = [];
+//         //     // console.log(repoList);
+
+
+
+//     });
