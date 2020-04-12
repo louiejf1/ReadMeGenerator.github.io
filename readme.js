@@ -22,18 +22,49 @@ let promptUser = () => {
             type: "input",
             name: "username",
             message: "What is your GITHUB username"
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "What is your GITHUB email"
         }
 
+
     ]).then(
+
+        // get  repo details function
+
         function (responce) {
             let gitRepoNames = [];
-
             let gitRepoList = `https://api.github.com/users/${responce.username}/repos`;
+
+
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>User Details>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+            let tempUserName = "https://api.github.com/users/louiejf1";
+            let gitHubApi = "https://api.github.com";
+            let current_user_authorizations_html_url = "https://api.github.com/hub";
+
+
+
+            axios.get(tempUserName)
+                .then(function (res) {
+
+                    //console.log(res);
+                    let name = res.data.name;
+                    //console.log(name);
+                    let avatar = res.data.avatar_url;
+                    //console.log(avatar);
+                    let repos_url = res.data.repos_url;
+                    //console.log(repos_url);
+
+                    fs.appendFile("readme.txt", "Avatar: " + avatar + "\n" + "\n", function (err) {
+
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        console.log("Success!");
+
+                    });
+                });
+
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Repo Details>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
             axios.get(gitRepoList)
                 .then(function (res1) {
@@ -42,11 +73,12 @@ let promptUser = () => {
 
                     for (let i = 0; i < res1.data.length; i++) {
                         // console.log(res1.data[i].name);
-                        gitRepoNames.push(res1.data[i].name);
+                        gitRepoNames.push("Project Title: " + res1.data[i].id + ": " + res1.data[i].name + "\n");
+                        gitRepoNames.push("Project Desc: " + res1.data[i].id + ": " + res1.data[i].description + "\n");
 
                     }
 
-                    fs.appendFile("readme.txt", gitRepoNames + 1, function (err) {
+                    fs.appendFile("readme.txt", gitRepoNames, function (err) {
 
                         if (err) {
                             return console.log(err);
@@ -58,48 +90,11 @@ let promptUser = () => {
 
                 });
         }
+
     );
+
+
 };
 
+
 promptUser();
-
-
-
-// let tempUserName = "https://api.github.com/users/louiejf1";
-// let gitHubApi = "https://api.github.com";
-// let current_user_authorizations_html_url = "https://api.github.com/hub";
-
-// let gitRepoList = "https://api.github.com/users/louiejf1/repos";
-
-
-
-// axios.get(tempUserName)
-//     .then(function (res) {
-
-//         // console.log(res);
-//         // let name = res.data.name;
-//         // console.log(name);
-//         // let avatar = res.data.avatar_url;
-//         // console.log(avatar);
-//         // let repos_url = res.data.repos_url;
-//         // console.log(repos_url);
-
-//         //     // axios.get(repos_url)
-//         //     //     .then(function (res1) {
-//         //     //         //console.log(res1);
-
-//         //     //         for (let i = 0; i < res1.length; i++) {
-//         //     //             // console.log(res1[i]);
-//         //     //             repoList.push(res1[i].name);
-
-//         //     //         }
-//         //     //         //   let repo1 = res1.data[1].name;
-//         //     //         //   console.log(repo1);
-//         //     //     });
-
-//         //     // repoList = [];
-//         //     // console.log(repoList);
-
-
-
-//     });
